@@ -1,0 +1,18 @@
+
+import streamlit as st
+import random
+
+def generate_lotto_tip():
+    while True:
+        zahlen = sorted(random.sample(range(1, 50), 6))
+        # Regeln gegen häufige Muster
+        if all(z > 10 for z in zahlen[:3]) and not any(b - a == 1 for a, b in zip(zahlen, zahlen[1:])):
+            return zahlen
+
+st.set_page_config(page_title="Lotto Tipp Generator", page_icon="🎲")
+
+st.title("🎲 Seltener Lottotipp-Generator")
+
+if st.button("Tipp generieren"):
+    tipp = generate_lotto_tip()
+    st.success("Dein Tipp: " + " – ".join(map(str, tipp)))
